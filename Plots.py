@@ -1,0 +1,38 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import librosa,os
+import librosa.display
+import datetime
+import speech_recognition as sr
+r = sr.Recognizer()
+mic = sr.Microphone()
+import datetime
+import pyaudio
+import wave
+import os
+from pydub import AudioSegment
+from pydub.silence import split_on_silence
+import Compression as cp
+import Recorder as rec
+from scipy.spatial import distance
+def waveplot1(y_file):
+    y_file ,fs = y_file
+    fig, ax = plt.subplots(nrows=1, sharex=True, sharey=True)
+    librosa.display.waveplot(y_file, sr=fs, ax=ax)
+    ax.set(title='Waveplot1')
+    ax.label_outer()
+    plt.show()
+def waveplot2(y_file):
+    y_file ,fs = y_file
+    y_harm, y_perc = librosa.effects.hpss(y_file)
+    fig, ax = plt.subplots(nrows=1, sharex=True, sharey=True)
+    librosa.display.waveplot(y_harm, sr=fs, color='r', alpha=0.25, ax=ax)
+    librosa.display.waveplot(y_perc, sr=fs, color='b', alpha=0.5, ax=ax)
+    ax.set(title='Waveplot2')
+    plt.show()
+def bspectrogram(y_file,filename):
+    fig, ax = plt.subplots()
+    img = librosa.display.specshow(y_file, x_axis='time', y_axis='linear', ax=ax)
+    ax.set(title='Spectrogram')
+    fig.colorbar(img, ax=ax, format="%+2.f dB")
+    plt.show()
