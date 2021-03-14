@@ -1,22 +1,25 @@
-import pyaudio
-import wave
 import os
+import wave
+
+import pyaudio
+
+
 def Record():
     import datetime
-    library=os.listdir("../Recordings")
+    library = os.listdir("Recordings")
     x = datetime.datetime.now()
-    timestamp="-"+str(x.day)+"-"+str(x.month)+"-"+str(x.year)
-    recordid=0
+    timestamp = "-" + str(x.day) + "-" + str(x.month) + "-" + str(x.year)
+    recordid = 0
     for data in library:
-        if(timestamp in data):
-            recordid+=1
-    timestamp+="-"+str(recordid)
-    chunk = 1024  # Record in chunks of 1024 samples
+        if (timestamp in data):
+            recordid += 1
+    timestamp += "-" + str(recordid)
+    chunk = 256  # Record in chunks of 1024 samples
     sample_format = pyaudio.paInt16  # 16 bits per sample
     channels = 1
-    fs = 48000  # Record at 44100 samples per second
-    seconds = 10
-    filename = "../Recordings/Recording"+timestamp+".wav"
+    fs = 4000  # Record at 44100 samples per second
+    seconds = 5
+    filename = "Recordings/Recording" + timestamp + ".wav"
     p = pyaudio.PyAudio()  # Create an interface to PortAudio
     print('Recording')
     stream = p.open(format=sample_format,
