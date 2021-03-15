@@ -32,7 +32,16 @@ def waveplot2(y_file):
     plt.show()
 def bspectrogram(y_file,filename):
     fig, ax = plt.subplots()
+    y_file ,fs = y_file
     img = librosa.display.specshow(y_file, x_axis='time', y_axis='linear', ax=ax)
     ax.set(title='Spectrogram')
     fig.colorbar(img, ax=ax, format="%+2.f dB")
     plt.show()
+def spectrogram(y_file):
+    y_file, fs= y_file
+    D = librosa.stft(y_file)  # STFT of y
+    S_db = librosa.amplitude_to_db(np.abs(D), ref=np.max)
+    fig, ax = plt.subplots()
+    img = librosa.display.specshow(S_db, x_axis='time', y_axis='linear', ax=ax,sr=fs)
+    ax.set(title='Now with labeled axes!')
+    fig.colorbar(img, ax=ax, format="%+2.f dB")
