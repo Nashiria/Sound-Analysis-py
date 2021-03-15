@@ -18,8 +18,7 @@ def readwav(filename):
 
 
 def editedspectrogram(y_file, filename):
-    y_file, fs = y_file
-    D = librosa.stft(y_file)
+    D = librosa.stft(y_file/100)
     S_db = librosa.amplitude_to_db(np.abs(D), ref=np.max)
     edited = []
     for line in S_db:
@@ -43,6 +42,18 @@ def editedspectrogram(y_file, filename):
     ax.set(title='Edited Spectrogram')
     plt.show()
 
+def spectrogram(y_file, filename):
+    D = librosa.stft(y_file/100)
+    S_db = librosa.amplitude_to_db(np.abs(D), ref=np.max)
+    fig, ax = plt.subplots()
+    img = librosa.display.specshow(S_db,x_axis='time', y_axis='linear', ax=ax)
+    ax.get_xaxis().set_visible(False)
+    ax.get_yaxis().set_visible(False)
+    #fig.savefig('Plots/Spectrogram_Edited/' + filename.replace(".wav", "") + "_spectogram_edited.png",bbox_inches='tight', pad_inches=0)
+    ax.get_xaxis().set_visible(True)
+    ax.get_yaxis().set_visible(True)
+    ax.set(title='Edited Spectrogram')
+    plt.show()
 
 def compression(y_file):
     D = librosa.stft(np.array(y_file))
